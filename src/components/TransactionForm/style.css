@@ -24,3 +24,7 @@ body.dark-theme .transaction-form {
 body.dark-theme .transaction-form label {
   color: #ccc;
 }
+
+transaction-form glass-box {
+  height: 100%;
+}

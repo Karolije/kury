@@ -270,3 +270,91 @@ body.dark-theme .chart-box {
   background: #1e1e1e;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.07);
 }
+@media (max-width: 768px) {
+  /* Układ: EggForm + EggChart – pionowo */
+  .egg-row {
+    flex-direction: column;
+  }
+
+  /* Układ obok siebie – pionowo */
+  .side-by-side {
+    flex-direction: column;
+  }
+
+  /* Widgety jeden pod drugim */
+  .widget-container {
+    grid-template-columns: 1fr;
+  }
+
+  .widget-full {
+    grid-column: auto;
+  }
+}
+.side-by-side {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch; /* <<< kluczowe */
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.left,
+.right {
+  flex: 1;
+  min-width: 300px;
+}
+
+.chart-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+body.dark-theme .chart-box {
+  background-color: #1e1e1e;
+  color: #eee;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.07);
+}
+
+
+.side-by-side {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  height: 100%;
+}
+
+.left, .right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.chart-box {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .side-by-side {
+    flex-direction: column;
+  }
+
+  .left, .right {
+    min-height: auto;
+  }
+
+  .chart-box {
+    height: auto;
+  }
+}

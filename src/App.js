@@ -40,21 +40,23 @@ function App() {
       </div>
 
       <div className="side-by-side">
-        <div className="left">
+        <div className="left glass-box">
           <TransactionForm />
         </div>
-        <div className="right">
+        <div className="right glass-box">
           <div className="chart-box">
             <IncomeChart />
             <ExpensesChart />
           </div>
         </div>
       </div>
+
       <div className="charts">
         <div className="chart-box">
           <MonthlyBarChart />
         </div>
       </div>
+
       <div className="glass-box transaction-list">
         <TransactionList />
       </div>
