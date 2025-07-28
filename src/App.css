@@ -358,3 +358,22 @@ body.dark-theme .chart-box {
     height: auto;
   }
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.egg-row > *,
+.left,
+.right,
+.chart-box,
+.widget,
+.widget-full {
+  max-width: 100%;
+}
