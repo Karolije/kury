@@ -1,0 +1,74 @@
+/* theme.css */
+body.light-theme {
+  background-color: #ffffff;
+  color: #222222;
+}
+
+body.dark-theme {
+  background-color: #121212;
+  color: #eeeeee;
+}
+
+.transaction-scroll-wrapper {
+  background-color: #f7f7f7;
+  color: #222;
+  border: 1px solid #ddd;
+}
+
+body.dark-theme .transaction-scroll-wrapper {
+  background-color: #1e1e1e;
+  color: #eee;
+  border: 1px solid #333;
+}
+
+.transaction-scroll li {
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+body.dark-theme .transaction-scroll li {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+
+.transaction-scroll button {
+  color: #d32f2f;
+  border: 1px solid #d32f2f;
+  background: transparent;
+}
+
+body.dark-theme .transaction-scroll button {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.transaction-scroll button:hover {
+  background-color: #d32f2f;
+  color: white;
+}
+
+body.dark-theme .transaction-scroll button:hover {
+  background-color: #ff6b6b;
+  color: #121212;
+}
+
+.show-more-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+body.dark-theme .show-more-btn {
+  background-color: #4dabf7;
+  color: #121212;
+}
+
+.show-more-btn:hover {
+  background-color: #0056b3;
+}
+
+body.dark-theme .show-more-btn:hover {
+  background-color: #90caf9;
+}
+.transaction-scroll li:hover {
+  background-color: #f0f0f0;
+}

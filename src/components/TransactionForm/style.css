@@ -1,0 +1,26 @@
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: #ffffff; /* jasne tło dla trybu light */
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  color: #222;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-theme .transaction-form {
+  background-color: #1e1e1e; /* ciemne tło dla dark */
+  color: #eee;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.07);
+}
+
+/* Jeśli masz jakieś nagłówki lub tekst w formie, dopilnuj, by też zmieniały kolor */
+.transaction-form label {
+  color: #555;
+}
+
+body.dark-theme .transaction-form label {
+  color: #ccc;
+}
