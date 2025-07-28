@@ -23,39 +23,39 @@ function App() {
   return (
     <div className="App">
       <ThemeToggle />
-      <h1>Mój portfel 💰</h1>
-      <div className="top-section">
-        <SummaryCards />
-        <div className="glass-box">
+      <h1>Mój Kurnik 💰</h1>
+      <SummaryCards />
+      <div className="dashboard-grid">
+        <div className="widget-container">
+          <div className="widget">
+            <EggForm />
+          </div>
+          <div className="widget">
+            <FlockManager />
+          </div>
+          <div className="widget-full">
+            <EggChart />
+          </div>
+        </div>
+      </div>
+
+      <div className="side-by-side">
+        <div className="left">
           <TransactionForm />
         </div>
-      </div>
-      <div className="glass-box">
-        <div>
-          <EggForm />
+        <div className="right">
+          <div className="chart-box">
+            <IncomeChart /> <ExpensesChart />
+          </div>
         </div>
       </div>
-      <div className="chart-box">
-        <div>
-          <EggChart />
+      <div className="charts">
+        <div className="chart-box">
+          <MonthlyBarChart />
         </div>
       </div>
       <div className="glass-box transaction-list">
         <TransactionList />
-      </div>
-      <div className="glass-box">
-        <FlockManager />
-      </div>
-      <div className="charts">
-        <div className="chart-box">
-          <IncomeChart />
-        </div>
-        <div className="chart-box">
-          <ExpensesChart />
-        </div>
-      </div>
-      <div className="chart-box">
-        <MonthlyBarChart />
       </div>
     </div>
   );

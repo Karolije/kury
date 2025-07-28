@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFlock, updateFlockCount } from "../../features/flock/FlockSlice";
+import "./style.css";
 
 const FlockManager = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const FlockManager = () => {
   const total = flock.reduce((sum, item) => sum + item.count, 0);
 
   return (
-    <div className="glass-box">
+    <div className="glass-box flock-manager">
       <h2>Stan stada</h2>
       <ul>
         {flock.map(({ id, type, count }) => (

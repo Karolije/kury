@@ -1,0 +1,77 @@
+.glass-box {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  max-width: 400px;
+  margin: 1rem auto;
+  color: #222;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body.dark-theme .glass-box {
+  background: rgba(43, 43, 43, 0.4);
+  color: #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-box h2 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.glass-box ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.glass-box li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme .glass-box li {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.glass-box li strong {
+  flex: 1;
+}
+
+.glass-box button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.3rem 0.8rem;
+  margin-left: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  user-select: none;
+}
+
+.glass-box button:hover {
+  background-color: #0056b3;
+}
+
+.glass-box button:active {
+  background-color: #003f7f;
+}
+
+.glass-box h3 {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-top: 1rem;
+}

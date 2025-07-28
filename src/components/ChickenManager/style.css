@@ -1,0 +1,51 @@
+.flock-manager ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .flock-manager li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  body.dark-theme .flock-manager li {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .flock-manager li strong {
+    flex: 1;
+  }
+  
+  .flock-manager button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    padding: 0.3rem 0.8rem;
+    margin-left: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    user-select: none;
+  }
+  
+  .flock-manager button:hover {
+    background-color: #0056b3;
+  }
+  
+  .flock-manager button:active {
+    background-color: #003f7f;
+  }
+  
+  .flock-manager h3 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+  }
+  

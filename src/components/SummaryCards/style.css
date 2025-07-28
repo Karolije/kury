@@ -1,21 +1,21 @@
 .summary-cards {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
-  
-  .summary-cards .card {
-    flex: 1;
-    min-width: 160px;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    background: #ffffff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-    text-align: center;
-    transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
-  }
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.summary-cards .card {
+  flex: 1;
+  min-width: 160px;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
+}
   
   body.dark-theme .summary-cards .card {
     background: #2b2b2b;
