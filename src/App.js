@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
       <h1>Mój Kurnik 💰</h1>
       <SummaryCards />
       <div className="dashboard-grid">

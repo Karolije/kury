@@ -28,8 +28,8 @@ const FlockManager = () => {
         {flock.map(({ id, type, count }) => (
           <li key={id} style={{ marginBottom: "10px" }}>
             <strong>{type}:</strong> {count}
-            <button onClick={() => handleChange(id, count, 1)}>＋</button>
             <button onClick={() => handleChange(id, count, -1)}>－</button>
+            <button onClick={() => handleChange(id, count, 1)}>＋</button>
           </li>
         ))}
       </ul>
