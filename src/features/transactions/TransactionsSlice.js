@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const API_URL = "http://localhost:3001/transactions";
+const API_URL = "https://chicken-api-yqol.onrender.com/transactions";
 
 export const fetchTransactions = createAsyncThunk(
   "transactions/fetchTransactions",

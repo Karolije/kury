@@ -1,7 +1,7 @@
 // src/features/flock/flockSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const API_URL = "http://localhost:3001/flock";
+const API_URL = "https://chicken-api-yqol.onrender.com/flock";
 
 export const fetchFlock = createAsyncThunk("flock/fetchFlock", async () => {
   const res = await fetch(API_URL);
