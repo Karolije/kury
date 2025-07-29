@@ -1,22 +1,25 @@
 // src/features/flock/flockSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-const API_URL = "https://chicken-api-yqol.onrender.com/flock";
+import { supabase } from "../supabaseClient";
 
 export const fetchFlock = createAsyncThunk("flock/fetchFlock", async () => {
-  const res = await fetch(API_URL);
-  return await res.json();
+  const { data, error } = await supabase.from("flock").select("*");
+  if (error) throw error;
+  return data;
 });
 
 export const updateFlockCount = createAsyncThunk(
   "flock/updateFlockCount",
   async ({ id, count }) => {
-    const res = await fetch(`${API_URL}/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ count }),
-    });
-    return await res.json();
+    const { data, error } = await supabase
+      .from("flock")
+      .update({ count })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
   }
 );
 
@@ -25,13 +28,21 @@ const flockSlice = createSlice({
   initialState: {
     flock: [],
     status: "idle",
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchFlock.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(fetchFlock.fulfilled, (state, action) => {
         state.flock = action.payload;
         state.status = "succeeded";
+      })
+      .addCase(fetchFlock.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       })
       .addCase(updateFlockCount.fulfilled, (state, action) => {
         const updated = action.payload;

@@ -1,57 +1,59 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const API_URL = "https://chicken-api-yqol.onrender.com/transactions";
+// Supabase dane
+const supabaseUrl =
+  "https://swvtsttgmzpoyogwnzqg.supabase.co/rest/v1/transactions";
+const apiKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnRzdHRnbXpwb3lvZ3duenFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3NzExNjcsImV4cCI6MjA2OTM0NzE2N30.VF13EPbvzZsKA0wstWuo9EkjHDSM8_Mw7IAK-FGRCeE";
 
+// 🔄 Async thunk – pobieranie danych z Supabase
 export const fetchTransactions = createAsyncThunk(
   "transactions/fetchTransactions",
   async () => {
-    const res = await fetch(API_URL);
-    return await res.json();
-  }
-);
-
-export const addTransaction = createAsyncThunk(
-  "transactions/addTransaction",
-  async (transaction) => {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(transaction),
+    const response = await fetch(supabaseUrl, {
+      method: "GET",
+      headers: {
+        apikey: apiKey,
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
     });
-    return await res.json();
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `Błąd pobierania danych z Supabase: ${response.status} – ${errorText}`
+      );
+    }
+
+    const data = await response.json();
+    return data;
   }
 );
 
-export const deleteTransaction = createAsyncThunk(
-  "transactions/deleteTransaction",
-  async (id) => {
-    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-    return id;
-  }
-);
-
-const TransactionsSlice = createSlice({
+// 🧠 Slice
+const transactionsSlice = createSlice({
   name: "transactions",
   initialState: {
     transactions: [],
     status: "idle",
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchTransactions.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(fetchTransactions.fulfilled, (state, action) => {
-        state.transactions = action.payload;
         state.status = "succeeded";
+        state.transactions = action.payload;
       })
-      .addCase(addTransaction.fulfilled, (state, action) => {
-        state.transactions.unshift(action.payload);
-      })
-      .addCase(deleteTransaction.fulfilled, (state, action) => {
-        state.transactions = state.transactions.filter(
-          (t) => t.id !== action.payload
-        );
+      .addCase(fetchTransactions.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });
 
-export default TransactionsSlice.reducer;
+export default transactionsSlice.reducer;
