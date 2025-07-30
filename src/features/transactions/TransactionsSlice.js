@@ -30,7 +30,20 @@ export const fetchTransactions = createAsyncThunk(
     return data;
   }
 );
-
+export const deleteTransaction = createAsyncThunk(
+  "transactions/delete",
+  async (id) => {
+    await fetch(`${supabaseUrl}?id=eq.${id}`, {
+      method: "DELETE",
+      headers: {
+        apikey: apiKey,
+        Authorization: `Bearer ${apiKey}`,
+        Prefer: "return=minimal",
+      },
+    });
+    return id;
+  }
+);
 // 🧠 Slice
 const transactionsSlice = createSlice({
   name: "transactions",
@@ -44,6 +57,11 @@ const transactionsSlice = createSlice({
     builder
       .addCase(fetchTransactions.pending, (state) => {
         state.status = "loading";
+      })
+      .addCase(deleteTransaction.fulfilled, (state, action) => {
+        state.transactions = state.transactions.filter(
+          (t) => t.id !== action.payload
+        );
       })
       .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.status = "succeeded";
