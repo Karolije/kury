@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import './style.css';
 
 const supabaseUrl = 'https://swvtsttgmzpoyogwnzqg.supabase.co/rest/v1/transactions';
-
 const apiKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnRzdHRnbXpwb3lvZ3duenFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3NzExNjcsImV4cCI6MjA2OTM0NzE2N30.VF13EPbvzZsKA0wstWuo9EkjHDSM8_Mw7IAK-FGRCeE";
 
@@ -18,27 +17,43 @@ const TransactionForm = () => {
     category: '',
     note: '',
     date: new Date().toISOString().split('T')[0],
+    quantity: '',
+    price: '',
   });
 
-  const categories = ['Pasza', 'Karol', 'Siudki'];
+  const categories = ['Pasza', 'Karol', 'Siudki', ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+
+      // automatyczne przeliczenie kwoty przy sprzedaży jajek
+      if (updated.type === 'income' && updated.quantity && updated.price) {
+        updated.amount = (parseFloat(updated.quantity) * parseFloat(updated.price)).toFixed(2);
+      }
+
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.amount || !formData.category) {
-      alert('Uzupełnij wymagane pola');
+    const { type, amount, category, quantity, price } = formData;
+
+    if (!amount || !category || (type === 'income' && (!quantity || !price))) {
+      alert('Uzupełnij wszystkie wymagane pola');
       return;
     }
 
     const transaction = {
       id: uuidv4(),
       ...formData,
-      amount: parseFloat(formData.amount),
+      amount: parseFloat(amount),
+      quantity: quantity ? parseInt(quantity) : null,
+      price: price ? parseFloat(price) : null,
     };
 
     try {
@@ -58,16 +73,16 @@ const TransactionForm = () => {
         throw new Error(`Błąd dodawania do Supabase: ${errorText}`);
       }
 
-      // ⟳ Odśwież dane w Reduxie po dodaniu nowej transakcji
       dispatch(fetchTransactions());
 
-      // 🔄 Wyczyść formularz
       setFormData({
         amount: '',
         type: 'income',
         category: '',
         note: '',
         date: new Date().toISOString().split('T')[0],
+        quantity: '',
+        price: '',
       });
     } catch (error) {
       console.error(error);
@@ -76,8 +91,46 @@ const TransactionForm = () => {
   };
 
   return (
-    <form className="transaction-form glass-box" onSubmit={handleSubmit}>
+
+    <form className="glass-box egg-form" onSubmit={handleSubmit}>
       <h2>Dodaj transakcję</h2>
+
+      <div className="form-group">
+        <label htmlFor="type">Typ</label>
+        <select id="type" name="type" value={formData.type} onChange={handleChange}>
+          <option value="income">Przychód</option>
+          <option value="expense">Wydatek</option>
+        </select>
+      </div>
+
+      {formData.type === 'income' && (
+        <>
+          <div className="form-group">
+            <label htmlFor="quantity">Liczba jajek *</label>
+            <input
+              id="quantity"
+              type="number"
+              name="quantity"
+              value={formData.quantity}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="price">Cena za 1 szt. (zł) *</label>
+            <input
+              id="price"
+              type="number"
+              step="0.01"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </>
+      )}
 
       <div className="form-group">
         <label htmlFor="amount">Kwota *</label>
@@ -88,20 +141,8 @@ const TransactionForm = () => {
           value={formData.amount}
           onChange={handleChange}
           required
+          readOnly={formData.type === 'income'}
         />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="type">Typ</label>
-        <select
-          id="type"
-          name="type"
-          value={formData.type}
-          onChange={handleChange}
-        >
-          <option value="income">Przychód</option>
-          <option value="expense">Wydatek</option>
-        </select>
       </div>
 
       <div className="form-group">

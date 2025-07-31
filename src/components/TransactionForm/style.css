@@ -1,30 +1,63 @@
-.transaction-form {
+.egg-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  background-color: #ffffff; /* jasne tło dla trybu light */
-  padding: 1.5rem;
+  justify-content: space-between;
+  gap: 0.1rem; /* zmniejszony z 0.75rem */
+  background-color: #ffffff;
+  padding: 1rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   color: #222;
   transition: background-color 0.3s ease, color 0.3s ease;
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 0.875rem;
 }
 
-body.dark-theme .transaction-form {
-  background-color: #1e1e1e; /* ciemne tło dla dark */
+body.dark-theme .egg-form {
+  background-color: #1e1e1e;
   color: #eee;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.07);
 }
 
-/* Jeśli masz jakieś nagłówki lub tekst w formie, dopilnuj, by też zmieniały kolor */
-.transaction-form label {
-  color: #555;
+.egg-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem; /* zmniejszony z 0.25rem */
+  margin-bottom: 0.4rem; /* dodany, żeby oddzielić grupy delikatnie */
 }
 
-body.dark-theme .transaction-form label {
+.egg-form label {
+  font-weight: 500;
+  color: #444;
+  font-size: 0.85rem;
+}
+
+body.dark-theme .egg-form label {
   color: #ccc;
 }
 
-transaction-form glass-box {
-  height: 100%;
+.egg-form input,
+.egg-form select,
+.egg-form button {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.5rem; /* trochę zmniejszone */
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.egg-form input[type="date"] {
+  padding: 0.3rem 0.5rem; /* zmniejszone z 0.35rem */
+}
+
+.egg-form button {
+  margin-top: 0.3rem; /* zmniejszone z 0.5rem */
+  background-color: #5c6ac4;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.egg-form button:hover {
+  background-color: #4b5bb1;
 }

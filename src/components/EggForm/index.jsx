@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchTransactions } from '../../features/transactions/TransactionsSlice';
-
+import "./style.css"
 const EggForm = () => {
   const dispatch = useDispatch();
   const today = new Date().toISOString().split('T')[0];

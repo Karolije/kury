@@ -1,0 +1,37 @@
+.charts-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .chart-container {
+    max-width: 420px;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    text-align: center;
+  }
+  
+  .chart-container h2 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #555;
+    user-select: none;
+  }
+  
+  .recharts-tooltip-wrapper {
+    font-size: 0.9rem !important;
+    font-family: inherit !important;
+  }
+  
+  .recharts-legend-item text {
+    font-size: 0.9rem;
+    font-family: inherit;
+  }
+  
