@@ -1,8 +1,6 @@
 .transaction-scroll-wrapper {
   padding: 1.5rem;
-  border-radius: 1rem;
   background: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   max-height: 300px;
   overflow-y: auto;
   margin-bottom: 1.5rem;
@@ -10,7 +8,6 @@
 
 body.dark-theme .transaction-scroll-wrapper {
   background: #1e1e1e;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.04);
 }
 
 .transaction-scroll-wrapper h2 {

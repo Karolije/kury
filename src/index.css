@@ -12,13 +12,11 @@ body.dark-theme {
 .transaction-scroll-wrapper {
   background-color: #f7f7f7;
   color: #222;
-  border: 1px solid #ddd;
 }
 
 body.dark-theme .transaction-scroll-wrapper {
   background-color: #1e1e1e;
   color: #eee;
-  border: 1px solid #333;
 }
 
 .transaction-scroll li {

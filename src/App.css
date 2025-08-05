@@ -35,17 +35,14 @@ h2 {
 
 .glass-box {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 body.dark-theme .glass-box {
   background: #222222;
   border-color: #444444;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.06);
 }
 
 /* Top section */
@@ -58,7 +55,6 @@ body.dark-theme .glass-box {
 /* Balance */
 .balance-box {
   padding: 0.75rem 1rem;
-  border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #f9fafb;
   color: #1a1a1a;
@@ -89,7 +85,6 @@ body.dark-theme .balance-box h2 {
 /* Lista transakcji */
 .transaction-item {
   padding: 0.75rem;
-  border: 1px solid #e5e7eb;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
@@ -132,16 +127,13 @@ body.dark-theme .transaction-item em {
   flex: 1 1 350px;
   padding: 0.75rem;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
   background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 body.dark-theme .chart-box {
   background: #222222;
   border-color: #444444;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.06);
 }
 
 /* Inputs i przyciski */
@@ -151,7 +143,6 @@ select {
   padding: 0.5rem 0.75rem;
   font-size: 0.95rem;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
   background: #ffffff;
   margin-bottom: 1rem;
   box-sizing: border-box;
@@ -227,7 +218,6 @@ body.dark-theme button:hover {
   background: white;
   padding: 1rem;
   border-radius: 1rem;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 }
 
 .widget-full {
@@ -235,7 +225,6 @@ body.dark-theme button:hover {
   background: white;
   padding: 1rem;
   border-radius: 1rem;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 }
 .side-by-side {
   display: flex;
@@ -259,14 +248,11 @@ body.dark-theme button:hover {
 
 .chart-box {
   padding: 1rem;
-  border-radius: 1rem;
   background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 body.dark-theme .chart-box {
   background: #1e1e1e;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.07);
 }
 @media (max-width: 768px) {
   /* Układ: EggForm + EggChart – pionowo */
@@ -310,13 +296,11 @@ body.dark-theme .chart-box {
   background: #fff;
   padding: 1rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 body.dark-theme .chart-box {
   background-color: #1e1e1e;
   color: #eee;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.07);
 }
 
 
@@ -375,3 +359,4 @@ html, body {
 .widget-full {
   max-width: 100%;
 }
+

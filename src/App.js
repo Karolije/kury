@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTransactions } from "./features/transactions/TransactionsSlice";
+import SectionBox from "./components/SectionBox";
 
-// Komponenty ogólne
-import ThemeToggle from "./components/ThemeToggle";
+// Layout & UI
 import SummaryCards from "./components/SummaryCards";
 
 // Kurnik
@@ -19,19 +19,9 @@ import MonthlyBarChart from "./components/charts/MonthlyBarChart";
 
 import "./App.css";
 
-function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchTransactions());
-  }, [dispatch]);
-
-  return (
-    <div className="App">
-      <h1>Mój Kurnik 💰</h1>
-      {/* Podsumowanie salda */}
-      <SummaryCards />
-      {/* Kurnik: jajka i stado */}
+const KurnikSection = () => (
+  <>
+    <SectionBox>
       <div className="widget-container">
         <div className="widget">
           <EggForm />
@@ -39,13 +29,22 @@ function App() {
         <div className="widget">
           <FlockManager />
         </div>
-      </div>{" "}
+      </div>
+    </SectionBox>
+
+    <SectionBox>
       <div className="widget-container">
         <div className="widget-full">
           <EggChart />
         </div>
       </div>
-      {/* Finanse: formularz i wykres kołowy */}
+    </SectionBox>
+  </>
+);
+
+const FinanseSection = () => (
+  <>
+    <SectionBox>
       <div className="side-by-side">
         <div className="left glass-box">
           <TransactionForm />
@@ -56,16 +55,35 @@ function App() {
           </div>
         </div>
       </div>
-      {/* Finanse: wykres miesięczny */}
-      <div className="glass-box">
-        <div className="chart-box">
-          <MonthlyBarChart />
-        </div>
+    </SectionBox>
+
+    <SectionBox>
+      <div className="chart-box">
+        <MonthlyBarChart />
       </div>
-      {/* Lista transakcji */}
-      <div className="glass-box transaction-list">
-        <TransactionList />
-      </div>
+    </SectionBox>
+
+    <SectionBox>
+      <TransactionList />
+    </SectionBox>
+  </>
+);
+
+function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTransactions());
+  }, [dispatch]);
+
+  return (
+    <div className="App">
+      <h1>Mój Kurnik 💰</h1>
+      <SectionBox>
+        <SummaryCards />
+      </SectionBox>
+      <KurnikSection />
+      <FinanseSection />
     </div>
   );
 }
