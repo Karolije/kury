@@ -8,7 +8,6 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28DD0', '#FF6666'
 const ExpensesChart = () => {
   const transactions = useSelector(state => state.transactions.transactions);
 
-  // Przychody
   const incomes = transactions.filter(t => t.type === 'income');
   const incomeData = incomes.reduce((acc, { category, amount }) => {
     const found = acc.find(item => item.name === category);
@@ -20,7 +19,6 @@ const ExpensesChart = () => {
     return acc;
   }, []);
 
-  // Wydatki
   const expenses = transactions.filter(t => t.type === 'expense');
   const expenseData = expenses.reduce((acc, { category, amount }) => {
     const found = acc.find(item => item.name === category);
@@ -34,7 +32,6 @@ const ExpensesChart = () => {
 
   return (
     <div className="charts-wrapper">
-      {/* Wykres przychodów */}
         <h2>Przychody wg kategorii (zł.)</h2>
         {incomeData.length === 0 ? (
           <p>Brak przychodów do wyświetlenia.</p>
@@ -59,7 +56,6 @@ const ExpensesChart = () => {
           </PieChart>
         )}
 
-      {/* Wykres wydatków */}
         <h2>Wydatki wg kategorii (zł.)</h2>
         {expenseData.length === 0 ? (
           <p>Brak wydatków do wyświetlenia.</p>

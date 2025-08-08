@@ -29,7 +29,6 @@ const TransactionForm = () => {
     setFormData((prev) => {
       const updated = { ...prev, [name]: value };
 
-      // automatyczne przeliczenie kwoty przy sprzedaży jajek
       if (updated.type === 'income' && updated.quantity && updated.price) {
         updated.amount = (parseFloat(updated.quantity) * parseFloat(updated.price)).toFixed(2);
       }

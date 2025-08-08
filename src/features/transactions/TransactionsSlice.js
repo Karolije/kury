@@ -1,12 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Supabase dane
 const supabaseUrl =
   "https://swvtsttgmzpoyogwnzqg.supabase.co/rest/v1/transactions";
 const apiKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnRzdHRnbXpwb3lvZ3duenFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3NzExNjcsImV4cCI6MjA2OTM0NzE2N30.VF13EPbvzZsKA0wstWuo9EkjHDSM8_Mw7IAK-FGRCeE";
 
-// 🔄 Async thunk – pobieranie danych z Supabase
 export const fetchTransactions = createAsyncThunk(
   "transactions/fetchTransactions",
   async () => {
@@ -44,7 +42,6 @@ export const deleteTransaction = createAsyncThunk(
     return id;
   }
 );
-// 🧠 Slice
 const transactionsSlice = createSlice({
   name: "transactions",
   initialState: {

@@ -10,13 +10,11 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-// pomocnicza funkcja: zwraca np. "7-2025"
 const getMonthYear = (dateStr) => {
   const date = new Date(dateStr);
   return `${date.getMonth() + 1}-${date.getFullYear()}`;
 };
 
-// komponent podsumowania
 const MonthlySummary = ({ data }) => {
   return (
     <div style={{ marginTop: '20px' }}>
@@ -45,7 +43,6 @@ const MonthlySummary = ({ data }) => {
   );
 };
 
-// główny komponent
 const MonthlyBarChart = () => {
   const transactions = useSelector((state) => state.transactions.transactions);
 
@@ -110,7 +107,6 @@ const MonthlyBarChart = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Podsumowanie z saldem */}
       <MonthlySummary data={data} />
     </div>
   );

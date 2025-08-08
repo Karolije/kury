@@ -2,16 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTransactions } from "./features/transactions/TransactionsSlice";
 import SectionBox from "./components/SectionBox";
-
-// Layout & UI
 import SummaryCards from "./components/SummaryCards";
-
-// Kurnik
 import EggForm from "./components/EggForm";
 import FlockManager from "./components/ChickenManager";
 import EggChart from "./components/charts/EggChart";
-
-// Finanse
 import TransactionForm from "./components/TransactionForm";
 import TransactionList from "./components/TransactionList";
 import ExpensesChart from "./components/charts/ExpensesChart";

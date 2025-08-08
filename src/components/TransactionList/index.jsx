@@ -14,7 +14,7 @@ const TransactionList = () => {
 
   const handleDelete = async (id) => {
     await dispatch(deleteTransaction(id));
-    dispatch(fetchTransactions()); // odświeżenie listy po usunięciu
+    dispatch(fetchTransactions()); 
   };
 
   if (!transactions.length) {
