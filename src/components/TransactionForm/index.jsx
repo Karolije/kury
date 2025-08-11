@@ -4,10 +4,6 @@ import { fetchTransactions } from '../../features/transactions/TransactionsSlice
 import { v4 as uuidv4 } from 'uuid';
 import './style.css';
 
-const supabaseUrl = 'https://swvtsttgmzpoyogwnzqg.supabase.co/rest/v1/transactions';
-const apiKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnRzdHRnbXpwb3lvZ3duenFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3NzExNjcsImV4cCI6MjA2OTM0NzE2N30.VF13EPbvzZsKA0wstWuo9EkjHDSM8_Mw7IAK-FGRCeE";
-
 const TransactionForm = () => {
   const dispatch = useDispatch();
 
@@ -21,7 +17,7 @@ const TransactionForm = () => {
     price: '',
   });
 
-  const categories = ['Pasza', 'Karol', 'Siudki', ];
+  const categories = ['Pasza', 'Karol', 'Siudki'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +26,10 @@ const TransactionForm = () => {
       const updated = { ...prev, [name]: value };
 
       if (updated.type === 'income' && updated.quantity && updated.price) {
-        updated.amount = (parseFloat(updated.quantity) * parseFloat(updated.price)).toFixed(2);
+        // Przelicz kwotę, ale zabezpiecz przed NaN
+        const qty = parseFloat(updated.quantity);
+        const prc = parseFloat(updated.price);
+        updated.amount = !isNaN(qty) && !isNaN(prc) ? (qty * prc).toFixed(2) : '';
       }
 
       return updated;
@@ -51,11 +50,19 @@ const TransactionForm = () => {
       id: uuidv4(),
       ...formData,
       amount: parseFloat(amount),
-      quantity: quantity ? parseInt(quantity) : null,
+      quantity: quantity ? parseInt(quantity, 10) : null,
       price: price ? parseFloat(price) : null,
     };
 
     try {
+      const supabaseUrl = process.env.REACT_APP_SUPABASE_URL + "/rest/v1/transactions";
+      const apiKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+
+      if (!supabaseUrl || !apiKey) {
+        alert('Brakuje konfiguracji Supabase w zmiennych środowiskowych!');
+        return;
+      }
+
       const response = await fetch(supabaseUrl, {
         method: 'POST',
         headers: {
@@ -90,7 +97,6 @@ const TransactionForm = () => {
   };
 
   return (
-
     <form className="glass-box egg-form" onSubmit={handleSubmit}>
       <h2>Dodaj transakcję</h2>
 
@@ -112,6 +118,8 @@ const TransactionForm = () => {
               name="quantity"
               value={formData.quantity}
               onChange={handleChange}
+              min={0}
+              step={1}
               required
             />
           </div>
@@ -125,6 +133,7 @@ const TransactionForm = () => {
               name="price"
               value={formData.price}
               onChange={handleChange}
+              min={0}
               required
             />
           </div>
@@ -141,6 +150,8 @@ const TransactionForm = () => {
           onChange={handleChange}
           required
           readOnly={formData.type === 'income'}
+          min={0}
+          step="0.01"
         />
       </div>
 
@@ -179,6 +190,7 @@ const TransactionForm = () => {
           name="date"
           value={formData.date}
           onChange={handleChange}
+          required
         />
       </div>
 

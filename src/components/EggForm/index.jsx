@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchTransactions } from '../../features/transactions/TransactionsSlice';
-import "./style.css"
+import "./style.css";
+
 const EggForm = () => {
   const dispatch = useDispatch();
   const today = new Date().toISOString().split('T')[0];
@@ -14,7 +15,7 @@ const EggForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +27,7 @@ const EggForm = () => {
 
     const entry = {
       type: 'collected',
-      amount: parseInt(formData.quantity),
+      amount: parseInt(formData.quantity, 10),
       date: formData.date,
       price: null,
     };
@@ -34,19 +35,20 @@ const EggForm = () => {
     console.log('Wysyłam do Supabase:', entry);
 
     try {
-      const supabaseUrl = 'https://swvtsttgmzpoyogwnzqg.supabase.co/rest/v1/transactions';
-      const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnRzdHRnbXpwb3lvZ3duenFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3NzExNjcsImV4cCI6MjA2OTM0NzE2N30.VF13EPbvzZsKA0wstWuo9EkjHDSM8_Mw7IAK-FGRCeE';
-
+      const supabaseUrl = process.env.REACT_APP_SUPABASE_URL + "/rest/v1/transactions";
+      const apiKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+      
       const response = await fetch(supabaseUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'apikey': apiKey,
-          'Authorization': `Bearer ${apiKey}`,
-          'Prefer': 'return=representation',
+          "Content-Type": "application/json",
+          apikey: apiKey,
+          Authorization: `Bearer ${apiKey}`,
+          Prefer: "return=representation",
         },
         body: JSON.stringify(entry),
       });
+      
 
       console.log('Status odpowiedzi:', response.status);
 
