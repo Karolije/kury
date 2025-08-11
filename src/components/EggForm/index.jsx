@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchTransactions } from '../../features/transactions/TransactionsSlice';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTransaction, fetchTransactions } from "../../features/transactions/TransactionsSlice";
 import "./style.css";
 
 const EggForm = () => {
   const dispatch = useDispatch();
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   const [formData, setFormData] = useState({
-    quantity: '',
+    quantity: "",
     date: today,
   });
 
@@ -21,55 +21,27 @@ const EggForm = () => {
     e.preventDefault();
 
     if (!formData.quantity || !formData.date) {
-      alert('Uzupełnij wszystkie wymagane pola');
+      alert("Uzupełnij wszystkie wymagane pola");
       return;
     }
 
     const entry = {
-      type: 'collected',
+      type: "collected",
       amount: parseInt(formData.quantity, 10),
       date: formData.date,
       price: null,
     };
 
-    console.log('Wysyłam do Supabase:', entry);
-
     try {
-      const supabaseUrl = process.env.REACT_APP_SUPABASE_URL + "/rest/v1/transactions";
-      const apiKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-      
-      const response = await fetch(supabaseUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: apiKey,
-          Authorization: `Bearer ${apiKey}`,
-          Prefer: "return=representation",
-        },
-        body: JSON.stringify(entry),
-      });
-      
-
-      console.log('Status odpowiedzi:', response.status);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Błąd serwera:', errorText);
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log('Odpowiedź z Supabase:', data);
-
-      dispatch(fetchTransactions());
-
+      await dispatch(addTransaction(entry)).unwrap();
+      await dispatch(fetchTransactions());
       setFormData({
-        quantity: '',
+        quantity: "",
         date: today,
       });
-    } catch (err) {
-      console.error('Błąd przy zapisie do Supabase:', err);
-      alert('Nie udało się zapisać danych do Supabase');
+    } catch (error) {
+      console.error("Błąd przy zapisie do Supabase:", error);
+      alert("Nie udało się zapisać danych do Supabase");
     }
   };
 
@@ -86,6 +58,7 @@ const EggForm = () => {
           value={formData.quantity}
           onChange={handleChange}
           required
+          min={1}
         />
       </div>
 
@@ -98,6 +71,7 @@ const EggForm = () => {
           value={formData.date}
           onChange={handleChange}
           required
+          max={today}
         />
       </div>
 

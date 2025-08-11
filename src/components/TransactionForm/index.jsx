@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchTransactions } from '../../features/transactions/TransactionsSlice';
-import { v4 as uuidv4 } from 'uuid';
-import './style.css';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchTransactions, addTransaction } from "../../features/transactions/TransactionsSlice";
+import "./style.css";
 
 const TransactionForm = () => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    amount: '',
-    type: 'income',
-    category: '',
-    note: '',
-    date: new Date().toISOString().split('T')[0],
-    quantity: '',
-    price: '',
+    amount: "",
+    type: "income",
+    category: "",
+    note: "",
+    date: new Date().toISOString().split("T")[0],
+    quantity: "",
+    price: "",
   });
 
-  const categories = ['Pasza', 'Karol', 'Siudki'];
+  const categories = ["Pasza", "Karol", "Siudki"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,11 +24,10 @@ const TransactionForm = () => {
     setFormData((prev) => {
       const updated = { ...prev, [name]: value };
 
-      if (updated.type === 'income' && updated.quantity && updated.price) {
-        // Przelicz kwotę, ale zabezpiecz przed NaN
+      if (updated.type === "income" && updated.quantity && updated.price) {
         const qty = parseFloat(updated.quantity);
         const prc = parseFloat(updated.price);
-        updated.amount = !isNaN(qty) && !isNaN(prc) ? (qty * prc).toFixed(2) : '';
+        updated.amount = !isNaN(qty) && !isNaN(prc) ? (qty * prc).toFixed(2) : "";
       }
 
       return updated;
@@ -41,13 +39,16 @@ const TransactionForm = () => {
 
     const { type, amount, category, quantity, price } = formData;
 
-    if (!amount || !category || (type === 'income' && (!quantity || !price))) {
-      alert('Uzupełnij wszystkie wymagane pola');
+    if (
+      !amount ||
+      !category ||
+      (type === "income" && (!quantity || !price))
+    ) {
+      alert("Uzupełnij wszystkie wymagane pola");
       return;
     }
 
-    const transaction = {
-      id: uuidv4(),
+    const transactionToAdd = {
       ...formData,
       amount: parseFloat(amount),
       quantity: quantity ? parseInt(quantity, 10) : null,
@@ -55,44 +56,22 @@ const TransactionForm = () => {
     };
 
     try {
-      const supabaseUrl = process.env.REACT_APP_SUPABASE_URL + "/rest/v1/transactions";
-      const apiKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-
-      if (!supabaseUrl || !apiKey) {
-        alert('Brakuje konfiguracji Supabase w zmiennych środowiskowych!');
-        return;
-      }
-
-      const response = await fetch(supabaseUrl, {
-        method: 'POST',
-        headers: {
-          'apikey': apiKey,
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal',
-        },
-        body: JSON.stringify(transaction),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Błąd dodawania do Supabase: ${errorText}`);
-      }
+      await dispatch(addTransaction(transactionToAdd)).unwrap();
 
       dispatch(fetchTransactions());
 
       setFormData({
-        amount: '',
-        type: 'income',
-        category: '',
-        note: '',
-        date: new Date().toISOString().split('T')[0],
-        quantity: '',
-        price: '',
+        amount: "",
+        type: "income",
+        category: "",
+        note: "",
+        date: new Date().toISOString().split("T")[0],
+        quantity: "",
+        price: "",
       });
     } catch (error) {
-      console.error(error);
-      alert('Wystąpił błąd podczas zapisywania transakcji.');
+      console.error("Błąd podczas zapisywania transakcji:", error);
+      alert("Wystąpił błąd podczas zapisywania transakcji.");
     }
   };
 
@@ -108,7 +87,7 @@ const TransactionForm = () => {
         </select>
       </div>
 
-      {formData.type === 'income' && (
+      {formData.type === "income" && (
         <>
           <div className="form-group">
             <label htmlFor="quantity">Liczba jajek *</label>
@@ -149,7 +128,7 @@ const TransactionForm = () => {
           value={formData.amount}
           onChange={handleChange}
           required
-          readOnly={formData.type === 'income'}
+          readOnly={formData.type === "income"}
           min={0}
           step="0.01"
         />
@@ -166,7 +145,9 @@ const TransactionForm = () => {
         >
           <option value="">-- wybierz --</option>
           {categories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
           ))}
         </select>
       </div>
@@ -191,6 +172,7 @@ const TransactionForm = () => {
           value={formData.date}
           onChange={handleChange}
           required
+          max={new Date().toISOString().split("T")[0]}
         />
       </div>
 
