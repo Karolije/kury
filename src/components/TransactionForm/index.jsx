@@ -16,7 +16,7 @@ const TransactionForm = () => {
     price: "",
   });
 
-  const categories = ["Pasza", "Karol", "Siudki"];
+  const categories = ["Pasza", "Karol", "Siudki", "Mama"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
