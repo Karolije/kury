@@ -5,7 +5,7 @@ import type { AppDispatch } from "../../redux/store";
 import type { Transaction } from "../../features/transactions/types";
 import "./style.css";
 
-const EggForm: React.FC = () => {
+export const EggForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const today = new Date().toISOString().split("T")[0];
 
@@ -83,4 +83,3 @@ const EggForm: React.FC = () => {
   );
 };
 
-export default EggForm;

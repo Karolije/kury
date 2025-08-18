@@ -1,44 +1,40 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import type { RootState } from '../../../redux/store';
+import type { Transaction } from '../../../features/transactions/types';
 import './style.css';
-import { RootState } from '../../../redux/store';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28DD0', '#FF6666'];
 
-type Transaction = {
-  id: string;
-  type: 'income' | 'expense';
-  category: string;
-  amount: number;
+type ChartData = {
+  name: string;
+  value: number;
 };
 
-type ChartData = { name: string; value: number };
+export const ExpensesChart: React.FC = () => {
+  // pobieramy transakcje ze store
+  const transactions = useSelector<RootState, Transaction[]>(
+    (state) => state.transactions.transactions
+  );
 
-const ExpensesChart: React.FC = () => {
-  const transactions = useSelector((state: RootState) => state.transactions.transactions as Transaction[]);
+  // Przygotowanie danych do wykresów
+  const prepareChartData = (type: 'income' | 'expense'): ChartData[] => {
+    return transactions
+      .filter(t => t.type === type && t.category) // filtrujemy po typie i istniejącej kategorii
+      .reduce<ChartData[]>((acc, t) => {
+        const found = acc.find(item => item.name === t.category);
+        if (found) {
+          found.value += t.amount;
+        } else {
+          acc.push({ name: t.category!, value: t.amount });
+        }
+        return acc;
+      }, []);
+  };
 
-  const incomes = transactions.filter(t => t.type === 'income');
-  const incomeData: ChartData[] = incomes.reduce<ChartData[]>((acc, { category, amount }) => {
-    const found = acc.find(item => item.name === category);
-    if (found) {
-      found.value += Number(amount);
-    } else {
-      acc.push({ name: category, value: Number(amount) });
-    }
-    return acc;
-  }, []);
-
-  const expenses = transactions.filter(t => t.type === 'expense');
-  const expenseData: ChartData[] = expenses.reduce<ChartData[]>((acc, { category, amount }) => {
-    const found = acc.find(item => item.name === category);
-    if (found) {
-      found.value += Number(amount);
-    } else {
-      acc.push({ name: category, value: Number(amount) });
-    }
-    return acc;
-  }, []);
+  const incomeData = prepareChartData('income');
+  const expenseData = prepareChartData('expense');
 
   return (
     <div className="charts-wrapper">
@@ -57,7 +53,7 @@ const ExpensesChart: React.FC = () => {
             fill="#82ca9d"
             label
           >
-            {incomeData.map((entry: ChartData, index: number) => (
+            {incomeData.map((entry, index) => (
               <Cell key={`income-cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
@@ -81,7 +77,7 @@ const ExpensesChart: React.FC = () => {
             fill="#8884d8"
             label
           >
-            {expenseData.map((entry: ChartData, index: number) => (
+            {expenseData.map((entry, index) => (
               <Cell key={`expense-cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
@@ -92,5 +88,3 @@ const ExpensesChart: React.FC = () => {
     </div>
   );
 };
-
-export default ExpensesChart

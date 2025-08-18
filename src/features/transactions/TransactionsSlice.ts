@@ -6,7 +6,7 @@ import {
 } from "../../api/supabaseApi";
 import type { Transaction } from "./types";
 
-interface TransactionsState {
+export interface TransactionsState {
   transactions: Transaction[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
@@ -18,7 +18,6 @@ const initialState: TransactionsState = {
   error: null,
 };
 
-
 export const fetchTransactions = createAsyncThunk<
   Transaction[],
   void,
@@ -26,11 +25,25 @@ export const fetchTransactions = createAsyncThunk<
 >("transactions/fetchTransactions", async (_, { rejectWithValue }) => {
   try {
     const data = await fetchTransactionsApi();
-    return data;
+
+    // sanitizacja danych
+    const sanitizedData: Transaction[] = data.map(item => ({
+      id: item.id ?? "", // jeśli id undefined -> pusty string
+      type: item.type,
+      amount: item.amount,
+      category: item.category ?? "",
+      note: item.note ?? "",
+      date: item.date,
+      quantity: item.quantity ?? null,
+      price: item.price ?? null,
+    }));
+
+    return sanitizedData;
   } catch (err: any) {
     return rejectWithValue(err.message ?? "Błąd pobierania danych");
   }
 });
+
 
 export const addTransaction = createAsyncThunk<
   Transaction,
@@ -59,12 +72,13 @@ export const deleteTransaction = createAsyncThunk<
 });
 
 
-const transactionsSlice = createSlice({
+export const transactionsSlice = createSlice({
   name: "transactions",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // FETCH
       .addCase(fetchTransactions.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -80,6 +94,7 @@ const transactionsSlice = createSlice({
         state.status = "failed";
         state.error = action.payload ?? action.error.message ?? null;
       })
+      // ADD
       .addCase(addTransaction.pending, (state) => {
         state.status = "loading";
       })
@@ -94,6 +109,7 @@ const transactionsSlice = createSlice({
         state.status = "failed";
         state.error = action.payload ?? action.error.message ?? null;
       })
+      // DELETE
       .addCase(deleteTransaction.pending, (state) => {
         state.status = "loading";
       })
@@ -113,4 +129,4 @@ const transactionsSlice = createSlice({
   },
 });
 
-export default transactionsSlice.reducer;
+export const transactionsReducer = transactionsSlice.reducer;

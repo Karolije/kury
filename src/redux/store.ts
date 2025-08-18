@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import transactionsReducer from "../features/transactions/TransactionsSlice";
-import flockReducer from "../features/flock/FlockSlice";
-
+import { transactionsReducer } from "../features/transactions/TransactionsSlice";
+import { flockReducer } from "../features/flock/FlockSlice";
 
 export const store = configureStore({
   reducer: {

@@ -19,7 +19,7 @@ type EggData = {
   collected: number;
 };
 
-const EggChart: React.FC = () => {
+export const EggChart: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const transactions = useSelector((state: RootState) => state.transactions.transactions as Transaction[]);
   const [data, setData] = useState<EggData[]>([]);
@@ -62,4 +62,3 @@ const EggChart: React.FC = () => {
   );
 };
 
-export default EggChart;

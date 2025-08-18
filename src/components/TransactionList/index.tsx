@@ -5,7 +5,7 @@ import type { AppDispatch, RootState } from "../../redux/store";
 import type { Transaction } from "../../features/transactions/types";
 import "./style.css";
 
-const TransactionList: React.FC = () => {
+export const TransactionList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [visibleCount, setVisibleCount] = useState(5);
 
@@ -56,4 +56,3 @@ const TransactionList: React.FC = () => {
   );
 };
 
-export default TransactionList;

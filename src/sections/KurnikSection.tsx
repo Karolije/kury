@@ -1,10 +1,10 @@
 import React from "react";
-import SectionBox from "../components/SectionBox";
-import EggForm from "../components/EggForm";
-import  ChickenManager  from "../components/ChickenManager";
-import EggChart from "../components/charts/EggChart";
+import {SectionBox} from "../components/SectionBox";
+import {EggForm} from "../components/EggForm";
+import  {ChickenManager}  from "../components/ChickenManager";
+import {EggChart} from "../components/charts/EggChart";
 
-const KurnikSection = () => (
+export const KurnikSection: React.FC = () => (
   <>
     <SectionBox>
       <div className="widget-container">
@@ -27,4 +27,3 @@ const KurnikSection = () => (
   </>
 );
 
-export default KurnikSection;

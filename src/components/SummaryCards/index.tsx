@@ -4,7 +4,7 @@ import type { RootState } from '../../redux/store';
 import type { Transaction } from '../../api/supabaseApi';
 import './style.css';
 
-const SummaryCards: React.FC = () => {
+export const SummaryCards: React.FC = () => {
   const transactions = useSelector(
     (state: RootState) => state.transactions.transactions as Transaction[]
   );
@@ -37,4 +37,3 @@ const SummaryCards: React.FC = () => {
   );
 };
 
-export default SummaryCards;

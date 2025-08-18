@@ -65,7 +65,7 @@ const MonthlySummary: React.FC<MonthlySummaryProps> = ({ data }) => {
   );
 };
 
-const MonthlyBarChart: React.FC = () => {
+export const MonthlyBarChart: React.FC = () => {
   const transactions = useSelector(
     (state: RootState) => state.transactions.transactions as Transaction[]
   );
@@ -131,4 +131,3 @@ const MonthlyBarChart: React.FC = () => {
   );
 };
 
-export default MonthlyBarChart;

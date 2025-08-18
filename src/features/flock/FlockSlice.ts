@@ -7,7 +7,7 @@ export type FlockItem = {
   count: number;
 };
 
-interface FlockState {
+export interface FlockState {
   flock: FlockItem[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
@@ -19,6 +19,7 @@ const initialState: FlockState = {
   error: null,
 };
 
+
 export const fetchFlock = createAsyncThunk<FlockItem[]>(
   "flock/fetchFlock",
   async () => {
@@ -29,9 +30,10 @@ export const fetchFlock = createAsyncThunk<FlockItem[]>(
 );
 
 export const updateFlockCount = createAsyncThunk<
-  FlockItem, 
-  { id: string; count: number } 
->("flock/updateFlockCount", async ({ id, count }) => {
+  FlockItem,
+  { id: string; count: number },
+  { rejectValue: string }
+>("flock/updateFlockCount", async ({ id, count }, { rejectWithValue }) => {
   const { data, error } = await supabase
     .from("flock")
     .update({ count })
@@ -39,11 +41,12 @@ export const updateFlockCount = createAsyncThunk<
     .select()
     .single();
 
-  if (error || !data) throw error || new Error("Nie udało się zaktualizować");
+  if (error || !data) return rejectWithValue(error?.message || "Nie udało się zaktualizować");
   return data as FlockItem;
 });
 
-const flockSlice = createSlice({
+
+export const flockSlice = createSlice({
   name: "flock",
   initialState,
   reducers: {},
@@ -51,6 +54,7 @@ const flockSlice = createSlice({
     builder
       .addCase(fetchFlock.pending, (state) => {
         state.status = "loading";
+        state.error = null;
       })
       .addCase(fetchFlock.fulfilled, (state, action: PayloadAction<FlockItem[]>) => {
         state.flock = action.payload;
@@ -66,8 +70,12 @@ const flockSlice = createSlice({
         if (index !== -1) {
           state.flock[index].count = updated.count;
         }
+      })
+      .addCase(updateFlockCount.rejected, (state, action) => {
+        state.error = action.payload ?? action.error.message ?? "Błąd aktualizacji stada";
       });
   },
 });
 
-export default flockSlice.reducer;
+
+export const flockReducer = flockSlice.reducer;

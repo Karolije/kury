@@ -1,11 +1,11 @@
 import React from "react";
-import SectionBox from "../components/SectionBox";
-import TransactionForm from "../components/TransactionForm";
-import TransactionList from "../components/TransactionList";
-import ExpensesChart from "../components/charts/ExpensesChart";
-import MonthlyBarChart from "../components/charts/MonthlyBarChart";
+import {SectionBox} from "../components/SectionBox";
+import {TransactionForm} from "../components/TransactionForm";
+import {TransactionList} from "../components/TransactionList";
+import {ExpensesChart} from "../components/charts/ExpensesChart";
+import {MonthlyBarChart} from "../components/charts/MonthlyBarChart";
 
-const FinanseSection = () => (
+export const FinanseSection: React.FC = () => (
   <>
     <SectionBox>
       <div className="side-by-side">
@@ -32,4 +32,4 @@ const FinanseSection = () => (
   </>
 );
 
-export default FinanseSection;
+

@@ -5,7 +5,7 @@ import type { AppDispatch } from "../../redux/store";
 import type { Transaction } from "../../features/transactions/types";
 import "./style.css";
 
-const TransactionForm: React.FC = () => {
+export const TransactionForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [formData, setFormData] = useState<{
@@ -190,4 +190,3 @@ const TransactionForm: React.FC = () => {
   );
 };
 
-export default TransactionForm;

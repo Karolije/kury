@@ -1,11 +1,10 @@
 import React from "react";
-import SectionBox from "../components/SectionBox";
-import SummaryCards from "../components/SummaryCards";
+import {SectionBox} from "../components/SectionBox";
+import {SummaryCards} from "../components/SummaryCards";
 
-const SummarySection = () => (
+export const SummarySection: React.FC = () => (
   <SectionBox>
     <SummaryCards />
   </SectionBox>
 );
 
-export default SummarySection;
