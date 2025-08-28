@@ -8,3 +8,11 @@ export interface Transaction {
   quantity?: number | null;
   price?: number | null;
 }
+
+export interface TransactionsState {
+  transactions: Transaction[];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+
+export type TransactionInput = Omit<Transaction, "id">;

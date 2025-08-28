@@ -1,53 +1,49 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
-import { addTransaction, fetchTransactions } from "../../features/transactions/TransactionsSlice";
+import { addTransaction, fetchTransactions } from "../../features/transactions/transactionsThunks";
 import type { AppDispatch } from "../../redux/store";
-import type { Transaction } from "../../features/transactions/types";
+import type { EggFormData } from "./eggFormSchema";
+import  { eggFormSchema } from "./eggFormSchema";
+import type { TransactionInput } from "../../features/transactions/types";
 import "./style.css";
 
 export const EggForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const today = new Date().toISOString().split("T")[0];
 
-  const [formData, setFormData] = useState<{ quantity: string; date: string }>({
-    quantity: "",
-    date: today,
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(eggFormSchema),
+    defaultValues: { quantity: 0, date: today },
   });
+  
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!formData.quantity || !formData.date) {
-      alert("Uzupełnij wszystkie wymagane pola");
-      return;
-    }
-
-    const entry: Omit<Transaction, "id"> = { 
+  const onSubmit = async (data: EggFormData) => {
+    const entry: TransactionInput = {
       type: "collected",
-      amount: parseInt(formData.quantity, 10),
-      date: formData.date,
+      amount: data.quantity,
+      date: data.date,
     };
-
+  
     try {
-      await dispatch(addTransaction(entry as Transaction)).unwrap();
+      await dispatch(addTransaction(entry)).unwrap();
       await dispatch(fetchTransactions());
-      setFormData({
-        quantity: "",
-        date: today,
-      });
+      reset({ quantity: 0, date: today });
     } catch (error) {
       console.error("Błąd przy zapisie do Supabase:", error);
       alert("Nie udało się zapisać danych do Supabase");
     }
   };
+  
 
   return (
-    <form className="transaction-form glass-box" onSubmit={handleSubmit}>
+    <form className="transaction-form glass-box" onSubmit={handleSubmit(onSubmit)}>
       <h2>Zebrane jajka</h2>
 
       <div className="form-group">
@@ -55,12 +51,10 @@ export const EggForm: React.FC = () => {
         <input
           id="quantity"
           type="number"
-          name="quantity"
-          value={formData.quantity}
-          onChange={handleChange}
-          required
+          {...register("quantity", { valueAsNumber: true })}
           min={1}
         />
+        {errors.quantity && <p className="error">{errors.quantity.message}</p>}
       </div>
 
       <div className="form-group">
@@ -68,12 +62,10 @@ export const EggForm: React.FC = () => {
         <input
           id="date"
           type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          required
+          {...register("date")}
           max={today}
         />
+        {errors.date && <p className="error">{errors.date.message}</p>}
       </div>
 
       <div className="form-actions">
@@ -82,4 +74,3 @@ export const EggForm: React.FC = () => {
     </form>
   );
 };
-

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchTransactions } from "./features/transactions/TransactionsSlice";
+import { fetchTransactions } from "./features/transactions/transactionsThunks";
 import {SummarySection} from "./sections/SummarySection";
 import {KurnikSection} from "./sections/KurnikSection";
 import {FinanseSection} from "./sections/FinanseSection";

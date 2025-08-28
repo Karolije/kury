@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFlock, updateFlockCount } from "../../features/flock/FlockSlice";
 import type { RootState, AppDispatch } from "../../redux/store";
@@ -21,7 +21,9 @@ export const ChickenManager: React.FC<ChickenManagerProps> = () => {
     }
   };
 
-  const total = flock.reduce((sum, item) => sum + item.count, 0);
+  const total = useMemo(() => { 
+    return flock.reduce((sum, item) => sum + item.count, 0);
+  }, [flock]);
 
   return (
     <div className="glass-box flock-manager">

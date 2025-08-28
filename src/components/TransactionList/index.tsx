@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTransactions, deleteTransaction } from "../../features/transactions/TransactionsSlice";
+import { fetchTransactions, deleteTransaction } from "../../features/transactions/transactionsThunks";
 import type { AppDispatch, RootState } from "../../redux/store";
 import type { Transaction } from "../../features/transactions/types";
 import "./style.css";

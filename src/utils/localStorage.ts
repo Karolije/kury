@@ -1,8 +1,11 @@
-export const saveState = (state: unknown) => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem("portfolioState", serializedState);
-  } catch (e) {
-    console.error("Błąd zapisu stanu do localStorage", e);
-  }
+import { useLocalStorage } from 'react-use';
+
+export const usePortfolioState = (initialState: unknown) => {
+  const [state, setState] = useLocalStorage('portfolioState', initialState);
+
+  const saveState = (newState: unknown) => {
+    setState(newState);
+  };
+
+  return { state, saveState };
 };

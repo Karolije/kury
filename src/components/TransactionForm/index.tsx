@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { fetchTransactions, addTransaction } from "../../features/transactions/TransactionsSlice";
+import { fetchTransactions, addTransaction } from "../../features/transactions/transactionsThunks";
 import type { AppDispatch } from "../../redux/store";
 import type { Transaction } from "../../features/transactions/types";
 import "./style.css";

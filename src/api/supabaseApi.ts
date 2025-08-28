@@ -1,4 +1,5 @@
 import { supabase } from "../features/supabaseClient";
+import type {  TransactionInput } from "../features/transactions/types";
 
 export interface Transaction {
   id: string;
@@ -21,10 +22,16 @@ export const fetchTransactionsApi = async (): Promise<Transaction[]> => {
   }));
 };
 
-export const addTransactionApi = async (transaction: Transaction): Promise<Transaction> => {
-  const { data, error } = await supabase.from("transactions").insert([transaction]).select().single();
+export const addTransactionApi = async (transaction: TransactionInput): Promise<Transaction> => {
+  const { data, error } = await supabase
+    .from("transactions")
+    .insert([transaction])
+    .select("*")
+    .single();
+
   if (error) throw error;
-  return { ...data, id: data.id ?? crypto.randomUUID() };
+
+  return data;
 };
 
 export const deleteTransactionApi = async (id: string): Promise<void> => {

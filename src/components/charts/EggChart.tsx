@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
-import { fetchTransactions } from '../../features/transactions/TransactionsSlice';
+import { fetchTransactions } from '../../features/transactions/transactionsThunks';
 import type { RootState, AppDispatch } from '../../redux/store';
 
 type Transaction = {
