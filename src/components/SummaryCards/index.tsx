@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../redux/store';
 import type { Transaction } from '../../api/supabaseApi';
@@ -9,16 +9,23 @@ export const SummaryCards: React.FC = () => {
     (state: RootState) => state.transactions.transactions as Transaction[]
   );
 
-  const income = transactions
-    .filter((t) => t.type === 'income')
-    .reduce((sum, t) => sum + (t.amount || 0), 0);
+ 
+  const { income, expenses, balance } = useMemo(() => {
+    const income = transactions
+      .filter((t) => t.type === 'income')
+      .reduce((sum, t) => sum + (t.amount || 0), 0);
 
-  const expenses = transactions
-    .filter((t) => t.type === 'expense')
-    .reduce((sum, t) => sum + (t.amount || 0), 0);
+    const expenses = transactions
+      .filter((t) => t.type === 'expense')
+      .reduce((sum, t) => sum + (t.amount || 0), 0);
 
-  const balance = income - expenses;
-
+    return {
+      income,
+      expenses,
+      balance: income - expenses,
+    };
+  }, [transactions]);
+  
   return (
     <div className="summary-cards">
       <div className="card income">
