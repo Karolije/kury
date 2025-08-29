@@ -24,14 +24,14 @@ export const fetchTransactions = createAsyncThunk<Transaction[], void, { rejectV
 );
 
 export const addTransaction = createAsyncThunk<
-  Transaction,          // to co zwraca backend (już z id)
-  TransactionInput,     // to co wysyłamy (bez id)
+  Transaction,       
+  TransactionInput,     
   { rejectValue: string }
 >(
   "transactions/addTransaction",
   async (transaction, { rejectWithValue }) => {
     try {
-      const data = await addTransactionApi(transaction); // backend zwraca pełny Transaction z id
+      const data = await addTransactionApi(transaction);
       return data;
     } catch (err: any) {
       return rejectWithValue(err.message ?? "Błąd dodawania transakcji");

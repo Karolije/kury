@@ -13,15 +13,13 @@ type ChartData = {
 };
 
 export const ExpensesChart: React.FC = () => {
-  // pobieramy transakcje ze store
   const transactions = useSelector<RootState, Transaction[]>(
     (state) => state.transactions.transactions
   );
 
-  // Przygotowanie danych do wykresów
   const prepareChartData = (type: 'income' | 'expense'): ChartData[] => {
     return transactions
-      .filter(t => t.type === type && t.category) // filtrujemy po typie i istniejącej kategorii
+      .filter(t => t.type === type && t.category)
       .reduce<ChartData[]>((acc, t) => {
         const found = acc.find(item => item.name === t.category);
         if (found) {
