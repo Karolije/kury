@@ -156,6 +156,7 @@ export const TransactionForm: React.FC = () => {
         <select id="category" {...register("category")}>
           <option value="">-- wybierz --</option>
           <option value="Pasza">Pasza</option>
+          <option value="Kupno kur">Kupno kur</option>
           <option value="Karol">Karol</option>
           <option value="Siudki">Siudki</option>
           <option value="Mama">Mama</option>
