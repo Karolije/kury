@@ -160,6 +160,8 @@ export const TransactionForm: React.FC = () => {
           <option value="Karol">Karol</option>
           <option value="Siudki">Siudki</option>
           <option value="Mama">Mama</option>
+          <option value="Aga">Aga</option>
+
         </select>
         {errors.category && <p className="error">{errors.category.message}</p>}
       </div>
