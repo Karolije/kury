@@ -45,7 +45,7 @@ const transactionSchema = z
           message: "Liczba jajek jest wymagana i musi być >= 1",
         });
       }
-      if (val.price === undefined || val.price <= 0) {
+      if (val.price === undefined || val.price < 0) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["price"],
@@ -161,6 +161,7 @@ export const TransactionForm: React.FC = () => {
           <option value="Siudki">Siudki</option>
           <option value="Mama">Mama</option>
           <option value="Aga">Aga</option>
+          <option value="Kornik">Kornik</option>
 
         </select>
         {errors.category && <p className="error">{errors.category.message}</p>}
