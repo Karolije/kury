@@ -1,0 +1,34 @@
+.monthly-summary {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .monthly-summary h3 {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .monthly-card {
+    flex: 1 1 200px;
+    min-width: 200px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .monthly-card h4 {
+    margin-bottom: 10px;
+  }
+  
+  .monthly-card p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .monthly-card p strong {
+    font-weight: 600;
+  }
+  

@@ -1,0 +1,71 @@
+.egg-chart-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  .egg-chart-container h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .view-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  
+  .view-toggle button {
+    background-color: #82ca9d;
+    border: none;
+    color: #fff;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+  
+  .view-toggle button:hover:not(:disabled) {
+    background-color: #5aa073;
+  }
+  
+  .view-toggle button:disabled {
+    background-color: #ccc;
+    cursor: default;
+  }
+  
+  .month-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .month-navigation button {
+    background-color: #82ca9d;
+    border: none;
+    color: #fff;
+    padding: 5px 12px;
+    margin: 0 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .month-navigation button:hover {
+    background-color: #5aa073;
+  }
+  
+  .month-navigation span {
+    font-weight: 600;
+    min-width: 80px;
+    text-align: center;
+  }
+  

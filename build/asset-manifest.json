@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/kury/static/css/main.0158715c.css",
-    "main.js": "/kury/static/js/main.91898980.js",
+    "main.js": "/kury/static/js/main.2cbd5cbf.js",
     "index.html": "/kury/index.html",
     "main.0158715c.css.map": "/kury/static/css/main.0158715c.css.map",
-    "main.91898980.js.map": "/kury/static/js/main.91898980.js.map"
+    "main.2cbd5cbf.js.map": "/kury/static/js/main.2cbd5cbf.js.map"
   },
   "entrypoints": [
     "static/css/main.0158715c.css",
-    "static/js/main.91898980.js"
+    "static/js/main.2cbd5cbf.js"
   ]
 }
